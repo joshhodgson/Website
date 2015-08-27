@@ -31,7 +31,7 @@ define([
 					slideshowSpeed: 4000,
 					fadeFirstSlide: false,
 					animationSpeed: aniDuration,
-					animationLoop: false,
+					animationLoop: true,
 					pauseOnAction: true,
 					pauseOnHover: true,
 					controlNav: true,

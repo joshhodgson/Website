@@ -1,5 +1,6 @@
 // Note I have modified this so that when animationLoop is false, the slideshow will continue to run after the last slide
 // the orignal version would stopp the slideshow when the last slide was reached.
+// This has also been mofidied to add "flex-active" to the cloned slides when necessary
 // marked change with "MODIFICATION"
 
 /*
@@ -164,6 +165,15 @@
           slider.animatingTo = Math.floor(slider.currentSlide/slider.move);
           slider.currentItem = slider.currentSlide;
           slider.slides.removeClass(namespace + "active-slide").eq(slider.currentItem).addClass(namespace + "active-slide");
+          // MODIFICATION
+          $(slider.vars.selector+".clone").removeClass(namespace + "active-slide");
+          if (slider.currentItem === 0) {
+            $(slider.vars.selector+".clone").last().addClass(namespace + "active-slide");
+          }
+          else if (slider.currentItem === slider.last) {
+            $(slider.vars.selector+".clone").first().addClass(namespace + "active-slide");
+          }
+          
           if(!msGesture){
               slider.slides.on(eventType, function(e){
                 e.preventDefault();
@@ -693,10 +703,28 @@
           if (Math.ceil((target + 1)/slider.visible) - 1 !== slider.currentSlide && target !== 0) {
             slider.currentItem = target;
             slider.slides.removeClass(namespace + "active-slide").eq(target).addClass(namespace + "active-slide");
+            // MODIFICATION
+            $(slider.vars.selector+".clone").removeClass(namespace + "active-slide");
+            if (target === 0) {
+              $(slider.vars.selector+".clone").last().addClass(namespace + "active-slide");
+            }
+            else if (target === slider.last) {
+              $(slider.vars.selector+".clone").first().addClass(namespace + "active-slide");
+            }
+
             target = Math.floor(target/slider.visible);
           } else {
             slider.currentItem = target;
             slider.slides.removeClass(namespace + "active-slide").eq(target).addClass(namespace + "active-slide");
+            // MODIFICATION
+            $(slider.vars.selector+".clone").removeClass(namespace + "active-slide");
+            if (target === 0) {
+              $(slider.vars.selector+".clone").last().addClass(namespace + "active-slide");
+            }
+            else if (target === slider.last) {
+              $(slider.vars.selector+".clone").first().addClass(namespace + "active-slide");
+            }
+
             return false;
           }
         }
@@ -718,7 +746,18 @@
 
         // !CAROUSEL:
         // CANDIDATE: slide active class (for add/remove slide)
-        if (!carousel) { slider.slides.removeClass(namespace + 'active-slide').eq(target).addClass(namespace + 'active-slide'); }
+        if (!carousel) {
+          slider.slides.removeClass(namespace + 'active-slide').eq(target).addClass(namespace + 'active-slide');
+          // MODIFICATION
+            $(slider.vars.selector+".clone").removeClass(namespace + "active-slide");
+            if (target === 0) {
+              console.log($(slider.vars.selector+".clone"));
+              $(slider.vars.selector+".clone").last().addClass(namespace + "active-slide");
+            }
+            else if (target === slider.last) {
+              $(slider.vars.selector+".clone").first().addClass(namespace + "active-slide");
+            }
+        }
 
         // INFINITE LOOP:
         // CANDIDATE: atEnd
@@ -964,7 +1003,17 @@
       }
       // !CAROUSEL:
       // CANDIDATE: active slide
-      if (!carousel) { slider.slides.removeClass(namespace + "active-slide").eq(slider.currentSlide).addClass(namespace + "active-slide"); }
+      if (!carousel) {
+        slider.slides.removeClass(namespace + "active-slide").eq(slider.currentSlide).addClass(namespace + "active-slide");
+        // MODIFICATION
+        $(slider.vars.selector+".clone").removeClass(namespace + "active-slide");
+        if (slider.currentSlide === 0) {
+          $(slider.vars.selector+".clone").last().addClass(namespace + "active-slide");
+        }
+        else if (slider.currentSlide === slider.last) {
+          $(slider.vars.selector+".clone").first().addClass(namespace + "active-slide");
+        }
+      }
 
       //FlexSlider: init() Callback
       slider.vars.init(slider);
