@@ -21,7 +21,7 @@ require.config({
 		"lib/dash": {
 			exports: "Dash"
 		},
-		"lib/videojs-dash": ["lib/dash", "videojs"],
+		"lib/videojs-dash": ["lib/dash", "app/video-js-global"],
 		"lib/videojs-markers": ["jquery", "videojs"],
 		"lib/videojs-thumbnails": ["videojs"]
 	}
